@@ -1,0 +1,49 @@
+---
+title: "NYC Flights Data"
+author: "Mia Fitzgerald"
+date: "4/16/2026"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = TRUE, message = TRUE)
+library(knitr)
+library(tidyverse)
+library(nycflights13)
+
+```
+
+
+### First 6 Origin/Destination Pairs
+
+
+```{r}
+OD_flights <- flights %>%
+  count(origin, dest)
+
+OD_flights %>%
+  head(6) %>%
+  kable()
+
+```
+
+
+^[Question 1 complete]
+
+
+### Using airports, retrieve just the latitude and longitude of the origin airports and add those columns
+to your frequency table. Rename latitude and longitude to reflect these are the origin’s coordinates.
+Relocate the columns to be next to the origin column. Display a table of the first 6 rows.
+
+
+```{r}
+airports_3 <- airports %>% 
+  select(lat, lon, faa) 
+
+OD_flights %>%
+  left_join(airports_3, join_by(origin == faa)) #XLOOKUP (Dayblink)
+
+
+```
+
+
