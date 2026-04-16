@@ -51,9 +51,26 @@ OD_flights2 %>%
 ```
 
 
-^[Question 2 complete]
+^[Question 3 complete]
 
 
+### First 6 Latitude and Longitude of the Destination Airports 
+
+
+```{r}
+OD_flights3 <- OD_flights %>%
+  left_join(airports_3, join_by(dest == faa)) %>% 
+  rename(dest_lat = lat, dest_lon = lon) %>%
+  relocate(dest_lat, dest_lon, .before = n) 
+
+OD_flights3 %>%
+  head(6) %>%
+  kable()
+
+```
+
+
+^[Question 4 complete]
 
 
 
