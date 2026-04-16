@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = TRUE, message = TRUE)
 library(knitr)
 library(tidyverse)
 library(nycflights13)
+library(dplyr)
 
 ```
 
@@ -31,19 +32,28 @@ OD_flights %>%
 ^[Question 1 complete]
 
 
-### Using airports, retrieve just the latitude and longitude of the origin airports and add those columns
-to your frequency table. Rename latitude and longitude to reflect these are the origin’s coordinates.
-Relocate the columns to be next to the origin column. Display a table of the first 6 rows.
+### XLOOKUP and Join Coordinates
 
 
 ```{r}
 airports_3 <- airports %>% 
   select(lat, lon, faa) 
 
-OD_flights %>%
-  left_join(airports_3, join_by(origin == faa)) #XLOOKUP (Dayblink)
+OD_flights2 <- OD_flights %>%
+  left_join(airports_3, join_by(origin == faa)) %>% 
+  rename(origin_lat = lat, origin_lon = lon) %>%
+  relocate(origin_lat, origin_lon, .before = dest) 
 
+OD_flights2 %>%
+  head(6) %>%
+  kable()
 
 ```
+
+
+^[Question 2 complete]
+
+
+
 
 
