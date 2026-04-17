@@ -2,11 +2,13 @@
 title: "NYC Flights Data"
 author: "Mia Fitzgerald"
 date: "4/16/2026"
-output: html_document
+output:
+  html_document:
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = TRUE, message = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 library(knitr)
 library(tidyverse)
 library(nycflights13)
@@ -30,11 +32,11 @@ OD_flights %>%
 
 ```
 
-
+I summarized the massive flights dataset by using count(origin, dest) to tally every unique route and create a frequency column. To keep my report professional, I used head(6) and kable() to transform the raw data into a clean, readable table. 
 ^[Question 1 complete]
 
 
-### XLOOKUP and Join Coordinates
+### XLOOKUP to Join Coordinates
 
 
 ```{r}
@@ -53,6 +55,7 @@ OD_flights2 %>%
 ```
 
 
+I refined the airports dataset to isolate only the essential coordinates and unique FAA codes for a more efficient merge. I then used left_join to physically "paste" these coordinates onto my flight data by matching them to the origin airport. After renaming and relocating the columns for better organization, I displayed the first six rows with kable().
 ^[Question 2 complete]
 
 
@@ -71,7 +74,7 @@ OD_flights3 %>%
 
 ```
 
-
+I did the same thing but for the destination coordinates. 
 ^[Question 3 complete]
 
 
@@ -85,7 +88,7 @@ coord_fixed(1.3)
 
 ```
 
-
+Imported the ggplot2 package to make a map with guidance code.
 ^[Question 4 complete]
 
 
@@ -106,6 +109,7 @@ geom_segment(data = OD_all_coords, mapping = aes(x = origin_lon, y = origin_lat,
 ```
 
 
+I combined the origin and destination coordinates into a single dataset, ensuring each route had a complete set of start and end points. I then use geom_segment to map the actual flight paths across the country. The plot uses the n variable for transparency, which effectively highlights the busiest travel routes.
 ^[Question 5 complete]
 
 
@@ -123,5 +127,6 @@ geom_segment(mapping = aes(x = origin_lon, y = origin_lat, xend = dest_lon, yend
 ```
 
 
+I filtered the dataset to focus exclusively on the continental US, removing long-distance flights that distorted the map's scale.
 ^[Question 6 complete]
 
